@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Application.Domain.Entity
+{
+    public class Customer
+    {
+        private string Id { get; }
+        private string Name { get; set; }
+        private Address Address { get; set; }
+        private bool Active { get; set; } = false;
+        private int RewardPoints { get; set; } = 0;
+
+        public Customer(string id, string name)
+        {
+            Id = id;
+            Name = name;
+            Validate();
+        }
+
+        public void ChangeName(string name)
+        {
+            Name = name;
+            Validate();
+        }
+
+        public string GetId()
+        {
+            return Id;
+        }
+
+        public void Activate()
+        {
+            Active = true;
+            if (Address == null)
+            {
+                throw new Exception("Address is required");
+            }
+        }
+
+        public void Deactivate()
+        {
+            Active = false;
+        }
+
+        public void AddAddress(Address address)
+        {
+            Address = address;
+
+        }
+
+        public string GetName()
+        {
+            return Name;
+        }
+        public bool IsActive()
+        {
+            return Active;
+        }
+
+        public void AddRewardsPoints(int points)
+        {
+            RewardPoints += points;
+        }
+
+        public int GetRewardsPoints()
+        {
+            return RewardPoints;
+        }
+
+        private void Validate()
+        {
+            if (string.IsNullOrEmpty(Id))
+            {
+                throw new Exception("Id is required");
+            }
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new Exception("Name is required");
+            }
+
+        }
+    }
+}
