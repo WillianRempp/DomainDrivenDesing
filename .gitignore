@@ -1,1 +1,8 @@
 /.vs
+/IntegratedTests/obj
+/IntegratedTests/bin
+/Application/bin
+/Application/obj
+/UnitTests/obj
+/UnitTests/bin
+/.vscode
