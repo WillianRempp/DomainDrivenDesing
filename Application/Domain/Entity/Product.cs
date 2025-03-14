@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Application.Domain.Entity
 {
     public class Product
@@ -26,10 +21,12 @@ namespace Application.Domain.Entity
             {
                 throw new Exception("Id is required");
             }
+
             if (string.IsNullOrEmpty(Name))
             {
                 throw new Exception("Name is required");
             }
+
             if (Price <= 0)
             {
                 throw new Exception("Price is required");

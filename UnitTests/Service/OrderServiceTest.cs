@@ -28,6 +28,5 @@ namespace UnitTests.Service
             Assert.True(costumer.GetRewardsPoints() == 5);
             Assert.True(order.GetTotal() == 10);
         }
-
     }
 }

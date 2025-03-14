@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Domain.Entity;
-using Application.Domain.Service;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.db.Model;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +13,7 @@ namespace Application.Domain.Repository
         {
             _context = context;
         }
+
         public async Task CreateAsync(Product entity)
         {
             await _context.ProductModel.AddAsync(
@@ -47,7 +43,6 @@ namespace Application.Domain.Repository
         }
 
 
-
         public async Task<Product?> FindByIdAsync(string id)
         {
             var productModel = await _context.ProductModel.FirstOrDefaultAsync(x => x.Id == id);
@@ -55,6 +50,7 @@ namespace Application.Domain.Repository
             {
                 return null;
             }
+
             return new Product(productModel.Id, productModel.Name, productModel.Price);
         }
 
@@ -66,6 +62,7 @@ namespace Application.Domain.Repository
             {
                 return null;
             }
+
             existingProduct.Name = entity.GetName();
             existingProduct.Price = entity.GetPrice();
             await _context.SaveChangesAsync();

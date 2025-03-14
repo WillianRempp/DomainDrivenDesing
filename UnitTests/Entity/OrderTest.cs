@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Domain.Entity;
-using Xunit;
 
 namespace UnitTests.Entity
 {
@@ -41,9 +36,9 @@ namespace UnitTests.Entity
         [Fact]
         public void ShouldThrowErrorIfQuantityIsZero()
         {
-            Exception actualException = Assert.Throws<Exception>(() => new Order("`ProductId", "ProductName", [new("1", "Item 1", 10, "1", 0)]));
+            Exception actualException = Assert.Throws<Exception>(() =>
+                new Order("`ProductId", "ProductName", [new("1", "Item 1", 10, "1", 0)]));
             Assert.Equal("Quantity is required", actualException.Message);
         }
-
     }
 }

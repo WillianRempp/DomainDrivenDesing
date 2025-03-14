@@ -26,7 +26,6 @@ if (app.Environment.IsDevelopment())
 // var order = new Order("1", "1", new List<OrderItem> { item1, item2, item3 });
 
 
-
 // Console.WriteLine(customer);
 
 app.UseHttpsRedirection();

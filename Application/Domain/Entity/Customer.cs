@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Application.Domain.Entity
 {
     public class Customer
@@ -51,13 +43,13 @@ namespace Application.Domain.Entity
         public void AddAddress(Address address)
         {
             Address = address;
-
         }
 
         public string GetName()
         {
             return Name;
         }
+
         public bool IsActive()
         {
             return Active;
@@ -79,11 +71,11 @@ namespace Application.Domain.Entity
             {
                 throw new Exception("Id is required");
             }
+
             if (string.IsNullOrEmpty(Name))
             {
                 throw new Exception("Name is required");
             }
-
         }
     }
 }

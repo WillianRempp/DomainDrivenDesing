@@ -1,7 +1,6 @@
 using Application.Domain.Entity;
 using Application.Domain.Repository;
 using Application.Infrastructure.db.Data;
-using Application.Infrastructure.db.Model;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +12,6 @@ namespace IntegratedTests.Features
         [Test]
         public async Task Test_Get_By_IdAsync()
         {
-
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
 
@@ -36,7 +34,6 @@ namespace IntegratedTests.Features
         [Test]
         public async Task Test_Update_Async()
         {
-
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
 
@@ -57,12 +54,11 @@ namespace IntegratedTests.Features
 
             Assert.That(updatedProduct, Is.Not.Null);
             Assert.That("Product 2", Is.EqualTo(updatedProduct?.GetName()));
-
         }
+
         [Test]
         public async Task Test_Get_All_Async()
         {
-
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
 
@@ -82,13 +78,11 @@ namespace IntegratedTests.Features
 
             Assert.That(products, Is.Not.Null);
             Assert.That(2, Is.EqualTo(products.Count));
-
         }
 
-         [Test]
+        [Test]
         public async Task Test_Delete_By_Id_Async()
         {
-
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
 
@@ -114,6 +108,5 @@ namespace IntegratedTests.Features
 
             Assert.That(productDeleteted, Is.Null);
         }
-
     }
 }

@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Features;
-
 namespace Application.Domain.Entity
 {
     public class Order
     {
-
         private string Id { get; }
+        //Relationship with other aggregate should use id:
         private string CostumerId { get; }
+        //Relationship in the same aggregate should use the object:
         private List<OrderItem> Items { get; }
 
         private decimal Total { get; }
@@ -37,11 +32,11 @@ namespace Application.Domain.Entity
 
         private void Validate()
         {
-
             if (string.IsNullOrEmpty(Id))
             {
                 throw new Exception("Id is required");
             }
+
             if (string.IsNullOrEmpty(CostumerId))
             {
                 throw new Exception("CostumerId is required");
@@ -52,6 +47,5 @@ namespace Application.Domain.Entity
                 throw new Exception("Items is required");
             }
         }
-
     }
 }

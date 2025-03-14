@@ -1,9 +1,4 @@
 using Application.Domain.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace UnitTests.Entity
 {
@@ -37,6 +32,5 @@ namespace UnitTests.Entity
             customer.ChangeName("Product 2");
             Assert.Equal("Product 2", customer.GetName());
         }
-
     }
 }

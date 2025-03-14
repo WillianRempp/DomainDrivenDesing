@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Domain.Entity;
 
 namespace Application.Domain.Service
@@ -15,6 +11,7 @@ namespace Application.Domain.Service
             {
                 total += order.GetTotal();
             }
+
             return total;
         }
 
@@ -28,8 +25,6 @@ namespace Application.Domain.Service
             var order = new Order(new Guid().ToString(), customer.GetId(), items);
             customer.AddRewardsPoints((int)order.GetTotal() / 2);
             return order;
-
         }
     }
-
 }

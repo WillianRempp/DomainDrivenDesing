@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Domain.Entity;
 using Application.Infrastructure.db.Model;
 using Microsoft.EntityFrameworkCore;
 

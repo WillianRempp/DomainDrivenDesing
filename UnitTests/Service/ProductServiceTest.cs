@@ -16,8 +16,6 @@ namespace UnitTests.Service
 
             Assert.True(product1.GetPrice() == 200);
             Assert.True(product2.GetPrice() == 400);
-
         }
-
     }
 }
