@@ -1,9 +1,21 @@
+using Application.Domain.Repository;
+using Application.Infrastructure.db.Data;
+using Application.Infrastructure.Repository;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+const string connection = "Data Source=Database.db";
+builder.Services.AddDbContext<ProductContext>(options =>
+    options.UseSqlite(connection)
+);
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -24,10 +36,10 @@ if (app.Environment.IsDevelopment())
 // var item2 = new OrderItem("2", "Item 2", 20);
 // var item3 = new OrderItem("3", "Item 3", 30);
 // var order = new Order("1", "1", new List<OrderItem> { item1, item2, item3 });
-
-
 // Console.WriteLine(customer);
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.Run();

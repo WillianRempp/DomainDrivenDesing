@@ -1,9 +1,10 @@
 using Application.Domain.Entity;
+using Application.Domain.Repository;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.db.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Domain.Repository
+namespace Application.Infrastructure.Repository
 {
     public class ProductRepository : IProductRepository
     {
