@@ -1,81 +1,85 @@
-namespace Application.Domain.Entity
+namespace Application.Domain.Entity;
+
+public class Customer
 {
-    public class Customer
+    private string Id { get; }
+    private string Name { get; set; }
+    private Address Address { get; set; }
+    private bool Active { get; set; } = false;
+    private int RewardPoints { get; set; } = 0;
+
+    public Customer(string id, string name)
     {
-        private string Id { get; }
-        private string Name { get; set; }
-        private Address Address { get; set; }
-        private bool Active { get; set; } = false;
-        private int RewardPoints { get; set; } = 0;
+        Id = id;
+        Name = name;
+        Validate();
+    }
 
-        public Customer(string id, string name)
+    public void ChangeName(string name)
+    {
+        Name = name;
+        Validate();
+    }
+
+    public string GetId()
+    {
+        return Id;
+    }
+
+    public void Activate()
+    {
+        Active = true;
+        if (Address == null)
         {
-            Id = id;
-            Name = name;
-            Validate();
+            throw new Exception("Address is required");
+        }
+    }
+
+    public void Deactivate()
+    {
+        Active = false;
+    }
+
+    public void AddAddress(Address address)
+    {
+        Address = address;
+    }
+
+    public Address GetAddress()
+    {
+        return Address;
+    }
+
+    public string GetName()
+    {
+        return Name;
+    }
+
+    public bool IsActive()
+    {
+        return Active;
+    }
+
+    public void AddRewardsPoints(int points)
+    {
+        RewardPoints += points;
+    }
+
+    public int GetRewardsPoints()
+    {
+        return RewardPoints;
+    }
+
+    private void Validate()
+    {
+        if (string.IsNullOrEmpty(Id))
+        {
+            throw new Exception("Id is required");
         }
 
-        public void ChangeName(string name)
+        if (string.IsNullOrEmpty(Name))
         {
-            Name = name;
-            Validate();
-        }
-
-        public string GetId()
-        {
-            return Id;
-        }
-
-        public void Activate()
-        {
-            Active = true;
-            if (Address == null)
-            {
-                throw new Exception("Address is required");
-            }
-        }
-
-        public void Deactivate()
-        {
-            Active = false;
-        }
-
-        public void AddAddress(Address address)
-        {
-            Address = address;
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-
-        public bool IsActive()
-        {
-            return Active;
-        }
-
-        public void AddRewardsPoints(int points)
-        {
-            RewardPoints += points;
-        }
-
-        public int GetRewardsPoints()
-        {
-            return RewardPoints;
-        }
-
-        private void Validate()
-        {
-            if (string.IsNullOrEmpty(Id))
-            {
-                throw new Exception("Id is required");
-            }
-
-            if (string.IsNullOrEmpty(Name))
-            {
-                throw new Exception("Name is required");
-            }
+            throw new Exception("Name is required");
         }
     }
 }

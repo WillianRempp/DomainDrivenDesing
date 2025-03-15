@@ -1,35 +1,34 @@
-namespace Application.Domain.Entity
+namespace Application.Domain.Entity;
+
+public class OrderItem
 {
-    public class OrderItem
+    private string Id { get; }
+    private string Name { get; set; }
+    private decimal Price { get; set; }
+    private string ProductId { get; }
+    private int Quantity { get; }
+
+    public OrderItem(string id, string name, decimal price, string productId, int quantity)
     {
-        private string Id { get; }
-        private string Name { get; set; }
-        private decimal Price { get; set; }
-        private string ProductId { get; }
-        private int Quantity { get; }
+        Id = id;
+        Name = name;
+        Price = price;
+        ProductId = productId;
+        Quantity = quantity;
 
-        public OrderItem(string id, string name, decimal price, string productId, int quantity)
+        Validate();
+    }
+
+    private void Validate()
+    {
+        if (Quantity <= 0)
         {
-            Id = id;
-            Name = name;
-            Price = price;
-            ProductId = productId;
-            Quantity = quantity;
-
-            Validate();
+            throw new Exception("Quantity is required");
         }
+    }
 
-        private void Validate()
-        {
-            if (Quantity <= 0)
-            {
-                throw new Exception("Quantity is required");
-            }
-        }
-
-        public decimal GetPrice()
-        {
-            return Price * Quantity;
-        }
+    public decimal GetPrice()
+    {
+        return Price * Quantity;
     }
 }

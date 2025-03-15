@@ -15,6 +15,7 @@ builder.Services.AddDbContext<ProductContext>(options =>
     options.UseSqlite(connection)
 );
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
