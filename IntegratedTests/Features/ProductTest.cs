@@ -15,15 +15,15 @@ public class ProductTest
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
 
-        var options = new DbContextOptionsBuilder<ProductContext>().UseSqlite(connection).Options;
+        var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
 
-        using (var context = new ProductContext(options))
+        using (var context = new Context(options))
         {
             context.Database.EnsureCreated();
         }
 
-        var repository = new ProductRepository(new ProductContext(options));
+        var repository = new ProductRepository(new Context(options));
         await repository.CreateAsync(new Product("1", "Product 1", 100));
         var product = await repository.FindByIdAsync("1");
 
@@ -37,14 +37,14 @@ public class ProductTest
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
 
-        var options = new DbContextOptionsBuilder<ProductContext>().UseSqlite(connection).Options;
+        var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
-        using (var context = new ProductContext(options))
+        using (var context = new Context(options))
         {
             context.Database.EnsureCreated();
         }
 
-        var repository = new ProductRepository(new ProductContext(options));
+        var repository = new ProductRepository(new Context(options));
 
         await repository.CreateAsync(new Product("1", "Product 1", 100));
 
@@ -62,14 +62,14 @@ public class ProductTest
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
 
-        var options = new DbContextOptionsBuilder<ProductContext>().UseSqlite(connection).Options;
+        var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
-        using (var context = new ProductContext(options))
+        using (var context = new Context(options))
         {
             context.Database.EnsureCreated();
         }
 
-        var repository = new ProductRepository(new ProductContext(options));
+        var repository = new ProductRepository(new Context(options));
 
         await repository.CreateAsync(new Product("1", "Product 1", 100));
         await repository.CreateAsync(new Product("2", "Product 2", 200));
@@ -86,14 +86,14 @@ public class ProductTest
         var connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
 
-        var options = new DbContextOptionsBuilder<ProductContext>().UseSqlite(connection).Options;
+        var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
-        using (var context = new ProductContext(options))
+        using (var context = new Context(options))
         {
             context.Database.EnsureCreated();
         }
 
-        var repository = new ProductRepository(new ProductContext(options));
+        var repository = new ProductRepository(new Context(options));
 
         await repository.CreateAsync(new Product("1", "Product 1", 100));
 
@@ -104,8 +104,8 @@ public class ProductTest
 
         await repository.DeleteAsync("1");
 
-        var productDeleteted = await repository.FindByIdAsync("1");
+        var productDeleted = await repository.FindByIdAsync("1");
 
-        Assert.That(productDeleteted, Is.Null);
+        Assert.That(productDeleted, Is.Null);
     }
 }

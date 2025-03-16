@@ -56,7 +56,7 @@ public class Product
         Validate();
     }
 
-    internal string GetId()
+    public string GetId()
     {
         return Id;
     }

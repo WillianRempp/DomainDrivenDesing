@@ -20,6 +20,7 @@ public class CustomerMapper
     {
         return new AddressModel()
         {
+            Id = Guid.NewGuid().ToString(),
             Street = address.GetStreet(),
             Number = address.GetNumber(),
             ZipCode = address.GetZipCode(),

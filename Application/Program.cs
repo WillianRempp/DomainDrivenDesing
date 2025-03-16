@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 const string connection = "Data Source=Database.db";
-builder.Services.AddDbContext<ProductContext>(options =>
+builder.Services.AddDbContext<Context>(options =>
     options.UseSqlite(connection)
 );
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

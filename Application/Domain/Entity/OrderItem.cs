@@ -26,6 +26,26 @@ public class OrderItem
             throw new Exception("Quantity is required");
         }
     }
+    
+    public string GetId()
+    {
+        return Id;
+    }
+    
+    public string GetName()
+    {
+        return Name;
+    }
+    
+    public string GetProductId()
+    {
+        return ProductId;
+    }
+    
+    public int GetQuantity()
+    {
+        return Quantity;
+    }
 
     public decimal GetPrice()
     {

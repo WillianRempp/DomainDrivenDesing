@@ -3,20 +3,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Application.Infrastructure.db.Model;
 
-[Table("Product")]
+[Table("Customers")]
 public class CustomerModel
 {
     [Key] public required string Id { get; set; }
     [Required] public required string Name { get; set; }
-    [Required] public AddressModel Address { get; set; }
-    [Required] public bool Active { get; set; }
-    [Required] public int RewardPoints { get; set; }
+    [Required] public required AddressModel Address { get; set; }
+    [Required] public required bool Active { get; set; }
+    [Required] public required int RewardPoints { get; set; }
 }
 
+[Table("Addresses")]
 public class AddressModel
 {
-    [Required] public string Street { get; set; }
-    [Required] public string Number { get; set; }
-    [Required] public string ZipCode { get; set; }
-    [Required] public string City { get; set; }
+    [Key] public required string Id { get; set; }
+    [Required] public required string Street { get; set; }
+    [Required] public required string Number { get; set; }
+    [Required] public required string ZipCode { get; set; }
+    [Required] public required string City { get; set; }
 }

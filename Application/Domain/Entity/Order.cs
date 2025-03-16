@@ -29,6 +29,16 @@ public class Order
     {
         return Total;
     }
+    
+    public string GetId()
+    {
+        return Id;
+    }
+    
+    public string GetCostumerId()
+    {
+        return CostumerId;
+    }
 
     private void Validate()
     {
