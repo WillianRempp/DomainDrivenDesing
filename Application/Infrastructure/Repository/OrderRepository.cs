@@ -15,14 +15,14 @@ public class OrderRepository : IOrderRepository
         _context = context;
     }
 
-    public async Task CreateAsync(Order order, Customer customer, List<OrderItem> orderItems)
+    public async Task CreateOrderAsync(Order order, Customer customer)
     {
         await _context.OrderModel.AddAsync(
             new OrderModel
             {
                 Id = order.GetId(),
                 CustomerId = customer.GetId(),
-                Items = orderItems.Select(orderItem => new OrderItemModel()
+                Items = order.GetItems().Select(orderItem => new OrderItemModel()
                     {
                         Id = orderItem.GetId(),
                         Name = orderItem.GetName(),

@@ -10,13 +10,13 @@ public class CustomerMapper
         {
             Id = customer.GetId(),
             Name = customer.GetName(),
-            Address = ToModel(customer.GetAddress()),
+            Address = ToModel(customer.GetAddress(), customer.GetId()),
             Active = customer.IsActive(),
             RewardPoints = customer.GetRewardsPoints()
         };
     }
 
-    public static AddressModel ToModel(Address address)
+    public static AddressModel ToModel(Address address, string customerId)
     {
         return new AddressModel()
         {
@@ -24,7 +24,8 @@ public class CustomerMapper
             Street = address.GetStreet(),
             Number = address.GetNumber(),
             ZipCode = address.GetZipCode(),
-            City = address.GetCity()
+            City = address.GetCity(),
+            CustomerId = customerId
         };
     }
 

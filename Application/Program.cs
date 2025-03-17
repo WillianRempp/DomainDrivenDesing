@@ -10,12 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-const string connection = "Data Source=Database.db";
 builder.Services.AddDbContext<Context>(options =>
-    options.UseSqlite(connection)
+    options.UseSqlite( "Data Source=Database.db")
 );
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

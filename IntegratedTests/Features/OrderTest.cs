@@ -72,7 +72,7 @@ public class OrderTest
         var orderItem = new OrderItem("1", product.GetName(), product.GetPrice(), product.GetId(), 1);
 
         var order = new Order("1", customer.GetId(), new List<OrderItem> { orderItem });
-        await orderRepository.CreateAsync(order, customer, [orderItem]);
+        await orderRepository.CreateOrderAsync(order, customer);
 
         var orderOnDatabase = await orderRepository.FindByIdAsync(order.GetId());
 

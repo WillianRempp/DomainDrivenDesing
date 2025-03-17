@@ -1,3 +1,5 @@
+using Application.Controller.Dto;
+using Application.Controller.Mapper;
 using Application.Domain.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,8 +18,17 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var comments = await _repository.FindAllAsync();
+        var products = await _repository.FindAllAsync();
+        var productsDto = products.Select(product => ProductMapper.ToDto(product));
 
-        return Ok(comments);
+        return Ok(productsDto);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
+    {
+        await _repository.CreateAsync(ProductMapper.ToEntity(productDto));
+
+        return Ok();
     }
 }

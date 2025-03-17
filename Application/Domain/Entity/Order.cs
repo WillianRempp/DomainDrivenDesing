@@ -30,6 +30,11 @@ public class Order
         return Total;
     }
     
+    public List<OrderItem> GetItems()
+    {
+        return Items;
+    }
+    
     public string GetId()
     {
         return Id;

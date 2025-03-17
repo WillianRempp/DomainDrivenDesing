@@ -34,7 +34,9 @@ public class CustomerRepository : ICustomerRepository
 
     public Task<List<Customer>> FindAllAsync()
     {
-        var customers = _context.CustomerModel.Select(x => CustomerMapper.ToEntity(x)).ToList();
+        var customers = _context.CustomerModel.Include(x => x.Address)
+            .Select(x => CustomerMapper.ToEntity(x)).ToList();
+
         return Task.FromResult(customers);
     }
 
@@ -61,7 +63,7 @@ public class CustomerRepository : ICustomerRepository
 
         existingCustomer.Name = entity.GetName();
         existingCustomer.Active = entity.IsActive();
-        existingCustomer.Address = CustomerMapper.ToModel(entity.GetAddress());
+        existingCustomer.Address = CustomerMapper.ToModel(entity.GetAddress(), entity.GetId());
         existingCustomer.RewardPoints = entity.GetRewardsPoints();
         await _context.SaveChangesAsync();
         return CustomerMapper.ToEntity(existingCustomer);

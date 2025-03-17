@@ -14,6 +14,14 @@ public class Customer
         Name = name;
         Validate();
     }
+    
+    public Customer(string id, string name,Address address)
+    {
+        Id = id;
+        Name = name;
+        Address = address;
+        Validate();
+    }
 
     public void ChangeName(string name)
     {
