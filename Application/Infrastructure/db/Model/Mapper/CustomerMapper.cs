@@ -31,9 +31,8 @@ public class CustomerMapper
 
     public static Customer ToEntity(CustomerModel customerModel)
     {
-        var customer = new Customer(customerModel.Id, customerModel.Name);
+        var customer = new Customer(customerModel.Id, customerModel.Name, ToEntity(customerModel.Address));
         customer.AddRewardsPoints(customerModel.RewardPoints);
-        customer.AddAddress(ToEntity(customerModel.Address));
         return customer;
     }
 

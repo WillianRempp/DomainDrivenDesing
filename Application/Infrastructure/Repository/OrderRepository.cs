@@ -39,10 +39,10 @@ public class OrderRepository : IOrderRepository
 
     public async Task DeleteAsync(string id)
     {
-        var OrderModel = _context.OrderModel.FirstOrDefault(x => x.Id == id);
-        if (OrderModel != null)
+        var orderModel = _context.OrderModel.FirstOrDefault(x => x.Id == id);
+        if (orderModel != null)
         {
-            _context.OrderModel.Remove(OrderModel);
+            _context.OrderModel.Remove(orderModel);
             await _context.SaveChangesAsync();
         }
     }

@@ -24,7 +24,7 @@ public class OrderController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] OrderDto orderDto)
     {
-        var customer = await _customerRepository.FindByIdAsync(orderDto.Id);
+        var customer = await _customerRepository.FindByIdAsync(orderDto.CostumerId);
 
         if (customer == null)
         {
@@ -43,5 +43,14 @@ public class OrderController : ControllerBase
         await _orderRepository.CreateOrderAsync(OrderMapper.ToEntity(orderDto), customer);
 
         return Ok();
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var orders = await _orderRepository.FindAllAsync();
+        var ordersDto = orders.Select(OrderMapper.ToDto);
+
+        return Ok(ordersDto);
     }
 }

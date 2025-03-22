@@ -43,7 +43,7 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<Customer?> FindByIdAsync(string id)
     {
-        var customerModel = await _context.CustomerModel.FirstOrDefaultAsync(x => x.Id == id);
+        var customerModel = await _context.CustomerModel.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == id);
         if (customerModel == null)
         {
             return null;
