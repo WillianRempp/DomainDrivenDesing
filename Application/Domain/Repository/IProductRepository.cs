@@ -1,7 +1,5 @@
-using Application.Domain.Entity;
-
 namespace Application.Domain.Repository;
 
-public interface IProductRepository : IRepository<Product>
+public interface IProductRepository : IRepository<Product.Entity.Product>
 {
 }

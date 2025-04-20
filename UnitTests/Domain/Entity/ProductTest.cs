@@ -1,6 +1,6 @@
-using Application.Domain.Entity;
+using Application.Domain.Product.Entity;
 
-namespace UnitTests.Entity;
+namespace UnitTests.Domain.Entity;
 
 public class ProductTest
 {

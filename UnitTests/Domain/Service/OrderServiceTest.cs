@@ -1,7 +1,7 @@
 using Application.Domain.Entity;
 using Application.Domain.Service;
 
-namespace UnitTests.Service;
+namespace UnitTests.Domain.Service;
 
 public class OrderServiceTest
 {

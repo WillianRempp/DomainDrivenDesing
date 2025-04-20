@@ -1,4 +1,4 @@
-using Application.Domain.Entity;
+using Application.Domain.Product.Entity;
 using Application.Domain.Repository;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.db.Model;
