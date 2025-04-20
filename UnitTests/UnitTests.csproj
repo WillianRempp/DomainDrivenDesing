@@ -27,8 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\@shared\" />
-    <Folder Include="Domain\Customer\Event\" />
-    <Folder Include="Domain\Product\Event\" />
   </ItemGroup>
 
 </Project>
