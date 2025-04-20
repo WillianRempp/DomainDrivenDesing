@@ -7,14 +7,14 @@ public class CustomerTest
     [Fact]
     public void ShouldThrowErrorWhenIdIsEmpty()
     {
-        Exception actualException = Assert.Throws<Exception>(() => new Application.Domain.Customer.Entity.Customer("", "Willian"));
+        var actualException = Assert.Throws<Exception>(() => new Application.Domain.Customer.Entity.Customer("", "Willian"));
         Assert.Equal("Id is required", actualException.Message);
     }
 
     [Fact]
     public void ShouldThrowErrorWhenIdNameIsEmpty()
     {
-        Exception actualException = Assert.Throws<Exception>(() => new Application.Domain.Customer.Entity.Customer("2", ""));
+        var actualException = Assert.Throws<Exception>(() => new Application.Domain.Customer.Entity.Customer("2", ""));
         Assert.Equal("Name is required", actualException.Message);
     }
 

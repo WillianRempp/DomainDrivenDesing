@@ -1,4 +1,5 @@
 using Application.Domain.Product.Entity;
+using Application.Domain.Product.Factory;
 using Application.Domain.Product.Repository;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.db.Model;
@@ -15,7 +16,7 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async Task CreateAsync(Product entity)
+    public async Task CreateAsync(IProduct entity)
     {
         await _context.ProductModel.AddAsync(
             new ProductModel
@@ -37,14 +38,15 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    public Task<List<Product>> FindAllAsync()
+    public Task<List<IProduct>> FindAllAsync()
     {
-        var products = _context.ProductModel.Select(x => new Product(x.Id, x.Name, x.Price)).ToList();
+        var products = _context.ProductModel.Select(
+            x => ProductFactory.Create("a", x.Id, x.Name, x.Price)).ToList();
         return Task.FromResult(products);
     }
 
 
-    public async Task<Product?> FindByIdAsync(string id)
+    public async Task<IProduct?> FindByIdAsync(string id)
     {
         var productModel = await _context.ProductModel.FirstOrDefaultAsync(x => x.Id == id);
         if (productModel == null)
@@ -52,11 +54,11 @@ public class ProductRepository : IProductRepository
             return null;
         }
 
-        return new Product(productModel.Id, productModel.Name, productModel.Price);
+        return ProductFactory.Create("a" ,productModel.Id, productModel.Name, productModel.Price);
     }
 
 
-    public async Task<Product?> UpdateAsync(Product entity)
+    public async Task<IProduct?> UpdateAsync(IProduct entity)
     {
         var existingProduct = _context.ProductModel.FirstOrDefault(x => x.Id == entity.GetId());
         if (existingProduct == null)
@@ -67,6 +69,6 @@ public class ProductRepository : IProductRepository
         existingProduct.Name = entity.GetName();
         existingProduct.Price = entity.GetPrice();
         await _context.SaveChangesAsync();
-        return new Product(existingProduct.Id, existingProduct.Name, existingProduct.Price);
+        return ProductFactory.Create("a" ,existingProduct.Id, existingProduct.Name, existingProduct.Price);
     }
 }

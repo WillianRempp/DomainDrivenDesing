@@ -1,4 +1,4 @@
-using Application.Domain.Product.Entity;
+using Application.Domain.Product.Factory;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.Repository;
 using Microsoft.Data.Sqlite;
@@ -24,7 +24,7 @@ public class ProductTest
         }
 
         var repository = new ProductRepository(new Context(options));
-        await repository.CreateAsync(new Product("1", "Product 1", 100));
+        await repository.CreateAsync(ProductFactory.Create("a", "1", "Product 1", 100));
         var product = await repository.FindByIdAsync("1");
 
         Assert.That(product, Is.Not.Null);
@@ -46,7 +46,7 @@ public class ProductTest
 
         var repository = new ProductRepository(new Context(options));
 
-        await repository.CreateAsync(new Product("1", "Product 1", 100));
+        await repository.CreateAsync(ProductFactory.Create("a", "1", "Product 1", 100));
 
         var product = await repository.FindByIdAsync("1");
         product?.ChangeName("Product 2");
@@ -71,8 +71,8 @@ public class ProductTest
 
         var repository = new ProductRepository(new Context(options));
 
-        await repository.CreateAsync(new Product("1", "Product 1", 100));
-        await repository.CreateAsync(new Product("2", "Product 2", 200));
+        await repository.CreateAsync(ProductFactory.Create("a", "1", "Product 1", 100));
+        await repository.CreateAsync(ProductFactory.Create("a", "2", "Product 2", 200));
 
         var products = await repository.FindAllAsync();
 
@@ -95,7 +95,7 @@ public class ProductTest
 
         var repository = new ProductRepository(new Context(options));
 
-        await repository.CreateAsync(new Product("1", "Product 1", 100));
+        await repository.CreateAsync(ProductFactory.Create("a", "1", "Product 1", 100));
 
         var product = await repository.FindByIdAsync("1");
 

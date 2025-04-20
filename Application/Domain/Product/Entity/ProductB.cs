@@ -1,12 +1,12 @@
 namespace Application.Domain.Product.Entity;
 
-public sealed class Product : IProduct
+public sealed class ProductB : IProduct
 {
     private string Id { get; }
     private string Name { get; set; }
     private decimal Price { get; set; }
 
-    internal Product(string id, string name, decimal price)
+    public ProductB(string id, string name, decimal price)
     {
         Id = id;
         Name = name;

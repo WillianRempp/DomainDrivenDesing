@@ -23,7 +23,7 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var products = await _repository.FindAllAsync();
-        var productsDto = products.Select(product => ProductMapper.ToDto(product));
+        var productsDto = products.Select(ProductMapper.ToDto);
 
         return Ok(productsDto);
     }

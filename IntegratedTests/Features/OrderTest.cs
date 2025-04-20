@@ -2,6 +2,7 @@ using Application.Domain.Checkout.Entity;
 using Application.Domain.Customer.Entity;
 using Application.Domain.Customer.ValueObject;
 using Application.Domain.Product.Entity;
+using Application.Domain.Product.Factory;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.Repository;
 using Microsoft.Data.Sqlite;
@@ -69,7 +70,7 @@ public class OrderTest
         customer.AddAddress(new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         await customerRepository.CreateAsync(customer);
 
-        var product = new Product("1", "Product 1", 100);
+        var product = ProductFactory.Create("a","1", "Product 1", 100);
         await productRepository.CreateAsync(product);
 
         var orderItem = new OrderItem("1", product.GetName(), product.GetPrice(), product.GetId(), 1);

@@ -1,8 +1,10 @@
+using Application.Domain.Product.Entity;
+
 namespace Application.Domain.Product.Service;
 
 public abstract class ProductService
 {
-    public static void ChangePriceOfAllProducts(List<Product.Entity.Product> products, decimal percentage)
+    public static void ChangePriceOfAllProducts(List<IProduct> products, decimal percentage)
     {
         foreach (var product in products)
         {
