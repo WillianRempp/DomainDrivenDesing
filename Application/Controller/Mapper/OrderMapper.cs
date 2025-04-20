@@ -1,5 +1,5 @@
 ﻿using Application.Controller.Dto;
-using Application.Domain.Entity;
+using Application.Domain.Checkout.Entity;
 
 namespace Application.Controller.Mapper;
 

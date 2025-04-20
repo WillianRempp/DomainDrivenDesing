@@ -1,6 +1,6 @@
 ﻿using Application.Controller.Dto;
-using Application.Domain.Entity;
-using Application.Infrastructure.db.Model;
+using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.ValueObject;
 
 namespace Application.Controller.Mapper;
 

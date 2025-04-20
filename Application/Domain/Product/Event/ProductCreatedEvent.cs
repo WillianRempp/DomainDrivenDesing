@@ -1,6 +1,8 @@
-﻿namespace Application.Domain.Product.Event;
+﻿using Application.Domain.shared.Event;
 
-public class ProductCreatedEvent : shared.Event
+namespace Application.Domain.Product.Event;
+
+public class ProductCreatedEvent : DomainEvent
 {
     public ProductCreatedEvent(string eventData)
     {

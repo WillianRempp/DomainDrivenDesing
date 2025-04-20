@@ -1,4 +1,5 @@
-﻿using Application.Domain.Entity;
+﻿using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.ValueObject;
 
 namespace Application.Infrastructure.db.Model.Mapper;
 

@@ -1,6 +1,8 @@
 using Application.Controller.Dto;
 using Application.Controller.Mapper;
-using Application.Domain.Repository;
+using Application.Domain.Product.Event;
+using Application.Domain.Product.Repository;
+using Application.Domain.shared.Event;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controller;
@@ -9,10 +11,12 @@ namespace Application.Controller;
 public class ProductsController : ControllerBase
 {
     private readonly IProductRepository _repository;
+    private readonly IEventDispatcher _eventDispatcher;
 
-    public ProductsController(IProductRepository repository)
+    public ProductsController(IProductRepository repository, IEventDispatcher eventDispatcher)
     {
         _repository = repository;
+        _eventDispatcher = eventDispatcher;
     }
 
     [HttpGet]
@@ -27,7 +31,14 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         await _repository.CreateAsync(ProductMapper.ToEntity(productDto));
+        await _eventDispatcher.Notify(
+            new ProductCreatedEvent($"ProductCreatedEvent: Name {productDto.Name}, Price {productDto.Price}"));
 
         return Ok();
     }

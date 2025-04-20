@@ -1,4 +1,6 @@
-using Application.Domain.Entity;
+using Application.Domain.Checkout.Entity;
+using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.ValueObject;
 using Application.Domain.Product.Entity;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.Repository;

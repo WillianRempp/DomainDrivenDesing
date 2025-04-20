@@ -1,5 +1,5 @@
-using Application.Domain.Entity;
-using Application.Domain.Repository;
+using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.Repository;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.db.Model.Mapper;
 using Microsoft.EntityFrameworkCore;

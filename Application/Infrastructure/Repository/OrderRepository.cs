@@ -1,5 +1,6 @@
-using Application.Domain.Entity;
-using Application.Domain.Repository;
+using Application.Domain.Checkout.Entity;
+using Application.Domain.Checkout.Repository;
+using Application.Domain.Customer.Entity;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.db.Model;
 using Microsoft.EntityFrameworkCore;

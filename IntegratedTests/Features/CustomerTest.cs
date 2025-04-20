@@ -1,4 +1,5 @@
-using Application.Domain.Entity;
+using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.ValueObject;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.Repository;
 using Microsoft.Data.Sqlite;
