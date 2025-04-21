@@ -1,3 +1,4 @@
+using Application.Domain.Customer.Factory;
 using Application.Domain.Customer.ValueObject;
 
 namespace UnitTests.Domain.Customer.Entity;
@@ -7,21 +8,23 @@ public class CustomerTest
     [Fact]
     public void ShouldThrowErrorWhenIdIsEmpty()
     {
-        var actualException = Assert.Throws<Exception>(() => new Application.Domain.Customer.Entity.Customer("", "Willian"));
+        var actualException = Assert.Throws<Exception>(() =>
+            CustomerFactory.CreateWithIdAndAddress("", "Willian",
+                new Address("Rua dos bobos", "0", "00000-000", "Jundiai")));
         Assert.Equal("Id is required", actualException.Message);
     }
 
     [Fact]
     public void ShouldThrowErrorWhenIdNameIsEmpty()
     {
-        var actualException = Assert.Throws<Exception>(() => new Application.Domain.Customer.Entity.Customer("2", ""));
+        var actualException = Assert.Throws<Exception>(() => CustomerFactory.Create(""));
         Assert.Equal("Name is required", actualException.Message);
     }
 
     [Fact]
     public void ShouldChangeName()
     {
-        var customer = new Application.Domain.Customer.Entity.Customer("1", "Willian");
+        var customer = CustomerFactory.Create("Willian");
         customer.ChangeName("Will");
         Assert.Equal("Will", customer.GetName());
     }
@@ -29,9 +32,8 @@ public class CustomerTest
     [Fact]
     public void ShouldActivate()
     {
-        var customer = new Application.Domain.Customer.Entity.Customer("1", "Willian");
-        var address = new Address("Rua dos bobos", "0", "00000-000", "Jundiai");
-        customer.AddAddress(address);
+        var customer =
+            CustomerFactory.CreateWithAddress("Willian", new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         customer.Activate();
         Assert.True(customer.IsActive());
     }
@@ -39,7 +41,7 @@ public class CustomerTest
     [Fact]
     public void ShouldThrowErrorWhenAddresIsUndefined()
     {
-        var customer = new Application.Domain.Customer.Entity.Customer("1", "Willian");
+        var customer = CustomerFactory.Create("Willian");
 
         Assert.Throws<Exception>(() => customer.Activate()).Message.Equals("Address is required");
     }
@@ -47,7 +49,7 @@ public class CustomerTest
     [Fact]
     public void ShouldDeactivate()
     {
-        var customer = new Application.Domain.Customer.Entity.Customer("1", "Willian");
+        var customer = CustomerFactory.Create("Willian");
         customer.Deactivate();
         Assert.False(customer.IsActive());
     }
@@ -55,7 +57,7 @@ public class CustomerTest
     [Fact]
     public void ShouldAddRewardPoints()
     {
-        var customer = new Application.Domain.Customer.Entity.Customer("1", "Willian");
+        var customer = CustomerFactory.Create("Willian");
         Assert.Equal(0, customer.GetRewardsPoints());
         customer.AddRewardsPoints(10);
         Assert.Equal(10, customer.GetRewardsPoints());

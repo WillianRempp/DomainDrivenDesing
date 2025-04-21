@@ -25,12 +25,12 @@ public class ProductRepository : IProductRepository
                 Name = entity.GetName(),
                 Price = entity.GetPrice()
             });
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(string id)
     {
-        var productModel = _context.ProductModel.FirstOrDefault(x => x.Id == id);
+        var productModel = await _context.ProductModel.FirstOrDefaultAsync(x => x.Id == id);
         if (productModel != null)
         {
             _context.ProductModel.Remove(productModel);
@@ -60,7 +60,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<IProduct?> UpdateAsync(IProduct entity)
     {
-        var existingProduct = _context.ProductModel.FirstOrDefault(x => x.Id == entity.GetId());
+        var existingProduct = await _context.ProductModel.FirstOrDefaultAsync(x => x.Id == entity.GetId());
         if (existingProduct == null)
         {
             return null;

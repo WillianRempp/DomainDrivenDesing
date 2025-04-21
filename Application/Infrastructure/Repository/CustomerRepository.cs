@@ -15,16 +15,16 @@ public class CustomerRepository : ICustomerRepository
         _context = context;
     }
 
-    public async Task CreateAsync(Customer entity)
+    public async Task CreateAsync(ICustomer entity)
     {
         await _context.CustomerModel.AddAsync(
             CustomerMapper.ToModel(entity));
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(string id)
     {
-        var customerModel = _context.CustomerModel.FirstOrDefault(x => x.Id == id);
+        var customerModel = await _context.CustomerModel.FirstOrDefaultAsync(x => x.Id == id);
         if (customerModel != null)
         {
             _context.CustomerModel.Remove(customerModel);
@@ -32,7 +32,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public Task<List<Customer>> FindAllAsync()
+    public Task<List<ICustomer>> FindAllAsync()
     {
         var customers = _context.CustomerModel.Include(x => x.Address)
             .Select(x => CustomerMapper.ToEntity(x)).ToList();
@@ -41,7 +41,7 @@ public class CustomerRepository : ICustomerRepository
     }
 
 
-    public async Task<Customer?> FindByIdAsync(string id)
+    public async Task<ICustomer?> FindByIdAsync(string id)
     {
         var customerModel = await _context.CustomerModel.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == id);
         if (customerModel == null)
@@ -53,9 +53,9 @@ public class CustomerRepository : ICustomerRepository
     }
 
 
-    public async Task<Customer?> UpdateAsync(Customer entity)
+    public async Task<ICustomer?> UpdateAsync(ICustomer entity)
     {
-        var existingCustomer = _context.CustomerModel.FirstOrDefault(x => x.Id == entity.GetId());
+        var existingCustomer = await _context.CustomerModel.FirstOrDefaultAsync(x => x.Id == entity.GetId());
         if (existingCustomer == null)
         {
             return null;

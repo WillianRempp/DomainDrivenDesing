@@ -13,14 +13,14 @@ public class ProductTest
     public async Task Test_Get_By_IdAsync()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
 
         using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new ProductRepository(new Context(options));
@@ -35,13 +35,13 @@ public class ProductTest
     public async Task Test_Update_Async()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new ProductRepository(new Context(options));
@@ -60,13 +60,13 @@ public class ProductTest
     public async Task Test_Get_All_Async()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new ProductRepository(new Context(options));
@@ -84,13 +84,13 @@ public class ProductTest
     public async Task Test_Delete_By_Id_Async()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new ProductRepository(new Context(options));

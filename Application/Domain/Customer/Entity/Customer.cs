@@ -2,7 +2,7 @@ using Application.Domain.Customer.ValueObject;
 
 namespace Application.Domain.Customer.Entity;
 
-public class Customer
+public class Customer : ICustomer
 {
     private string Id { get; }
     private string Name { get; set; }
@@ -10,7 +10,7 @@ public class Customer
     private bool Active { get; set; } = false;
     private int RewardPoints { get; set; } = 0;
 
-    public Customer(string id, string name)
+    internal Customer(string id, string name)
     {
         Id = id;
         Name = name;

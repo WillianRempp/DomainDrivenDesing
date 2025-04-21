@@ -1,17 +1,18 @@
 ﻿using Application.Controller.Dto;
 using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.Factory;
 using Application.Domain.Customer.ValueObject;
 
 namespace Application.Controller.Mapper;
 
 public static class CustomerMapper
 {
-    public static Customer ToEntity(CustomerDto customerDto)
+    public static ICustomer ToEntity(CustomerDto customerDto)
     {
-        return new Customer(customerDto.Id, customerDto.Name, AddressToEntity(customerDto.Address));
+        return CustomerFactory.CreateWithIdAndAddress(customerDto.Id, customerDto.Name, AddressToEntity(customerDto.Address));
     }
     
-    public static CustomerDto ToDto(Customer customer)
+    public static CustomerDto ToDto(ICustomer customer)
     {
         return new CustomerDto()
         {

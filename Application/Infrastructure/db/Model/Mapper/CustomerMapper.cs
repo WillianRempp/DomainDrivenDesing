@@ -1,11 +1,12 @@
 ﻿using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.Factory;
 using Application.Domain.Customer.ValueObject;
 
 namespace Application.Infrastructure.db.Model.Mapper;
 
-public class CustomerMapper
+public static class CustomerMapper
 {
-    public static CustomerModel ToModel(Customer customer)
+    public static CustomerModel ToModel(ICustomer customer)
     {
         return new CustomerModel()
         {
@@ -30,9 +31,9 @@ public class CustomerMapper
         };
     }
 
-    public static Customer ToEntity(CustomerModel customerModel)
+    public static ICustomer ToEntity(CustomerModel customerModel)
     {
-        var customer = new Customer(customerModel.Id, customerModel.Name, ToEntity(customerModel.Address));
+        var customer = CustomerFactory.CreateWithIdAndAddress(customerModel.Id, customerModel.Name, ToEntity(customerModel.Address));
         customer.AddRewardsPoints(customerModel.RewardPoints);
         return customer;
     }

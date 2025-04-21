@@ -1,5 +1,6 @@
 using Application.Domain.Checkout.Entity;
 using Application.Domain.Checkout.Service;
+using Application.Domain.Customer.Factory;
 
 namespace UnitTests.Domain.Checkout.Service;
 
@@ -20,7 +21,7 @@ public class OrderServiceTest
     [Fact]
     public void ShouldPlaceAnOrder()
     {
-        var costumer = new Application.Domain.Customer.Entity.Customer("1", "Willian");
+        var costumer = CustomerFactory.Create( "Customer 1");
 
         var orderItem1 = new OrderItem("1", "Item 1", 10, "1", 1);
         var order = OrderService.PlaceOrder(costumer, [orderItem1]);

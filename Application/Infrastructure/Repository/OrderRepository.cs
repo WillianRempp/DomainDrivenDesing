@@ -16,7 +16,7 @@ public class OrderRepository : IOrderRepository
         _context = context;
     }
 
-    public async Task CreateOrderAsync(Order order, Customer customer)
+    public async Task CreateOrderAsync(Order order, ICustomer customer)
     {
         await _context.OrderModel.AddAsync(
             new OrderModel
@@ -40,7 +40,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task DeleteAsync(string id)
     {
-        var orderModel = _context.OrderModel.FirstOrDefault(x => x.Id == id);
+        var orderModel = await _context.OrderModel.FirstOrDefaultAsync(x => x.Id == id);
         if (orderModel != null)
         {
             _context.OrderModel.Remove(orderModel);
@@ -78,7 +78,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order?> UpdateAsync(Order entity)
     {
-        var existingOrder = _context.OrderModel.FirstOrDefault(x => x.Id == entity.GetId());
+        var existingOrder = await _context.OrderModel.FirstOrDefaultAsync(x => x.Id == entity.GetId());
         if (existingOrder == null)
         {
             return null;

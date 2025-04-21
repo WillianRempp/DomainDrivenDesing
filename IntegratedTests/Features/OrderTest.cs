@@ -1,5 +1,6 @@
 using Application.Domain.Checkout.Entity;
 using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.Factory;
 using Application.Domain.Customer.ValueObject;
 using Application.Domain.Product.Entity;
 using Application.Domain.Product.Factory;
@@ -16,13 +17,13 @@ public class OrderTest
     private static async Task<CustomerRepository> CreateCustomerRepository()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         await using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var customerRepository = new CustomerRepository(new Context(options));
@@ -32,13 +33,13 @@ public class OrderTest
     private static async Task<ProductRepository> CreateProductRepository()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         await using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         return new ProductRepository(new Context(options));
@@ -47,13 +48,13 @@ public class OrderTest
     private static async Task<OrderRepository> CreateOrderRepository()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         await using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         return new OrderRepository(new Context(options));
@@ -66,8 +67,7 @@ public class OrderTest
         var productRepository = await CreateProductRepository();
         var orderRepository = await CreateOrderRepository();
 
-        var customer = new Customer("1", "Customer 1");
-        customer.AddAddress(new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
+        var customer = CustomerFactory.CreateWithIdAndAddress("1", "Customer 1",new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         await customerRepository.CreateAsync(customer);
 
         var product = ProductFactory.Create("a","1", "Product 1", 100);

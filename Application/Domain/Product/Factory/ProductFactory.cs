@@ -2,7 +2,7 @@
 
 namespace Application.Domain.Product.Factory;
 
-public class ProductFactory
+public abstract class ProductFactory
 {
     public static IProduct Create(string type, string id, string name, decimal price)
     {

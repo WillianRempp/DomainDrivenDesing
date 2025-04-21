@@ -31,6 +31,10 @@ public class CustomerController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateCustomer([FromBody] CustomerDto customerDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         await _repository.CreateAsync(CustomerMapper.ToEntity(customerDto));
         await _eventDispatcher.Notify(new CustomerCreatedEvent($"CustomerCreatedEvent: Name {customerDto.Name}"));
 
@@ -40,6 +44,10 @@ public class CustomerController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateCustomer([FromBody] CustomerDto customerDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         await _repository.UpdateAsync(CustomerMapper.ToEntity(customerDto));
         await _eventDispatcher.Notify(new CustomerUpdatedEvent($"CustomerUpdatedEvent: Name {customerDto.Name}"));
 

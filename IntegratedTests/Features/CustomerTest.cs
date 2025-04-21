@@ -1,4 +1,5 @@
 using Application.Domain.Customer.Entity;
+using Application.Domain.Customer.Factory;
 using Application.Domain.Customer.ValueObject;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.Repository;
@@ -14,19 +15,18 @@ public class CustomerTest
     public async Task Test_Get_By_IdAsync()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         await using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new CustomerRepository(new Context(options));
         
-        var customer = new Customer("1", "Customer 1");
-        customer.AddAddress(new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
+        var customer =CustomerFactory.CreateWithAddress( "Customer 1",new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         customer.AddRewardsPoints(10);
         await repository.CreateAsync(customer);
 
@@ -38,19 +38,18 @@ public class CustomerTest
     public async Task Test_Update_Async()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         await using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new CustomerRepository(new Context(options));
 
-        var customer = new Customer("1", "Customer 1");
-        customer.AddAddress(new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
+        var customer =CustomerFactory.CreateWithIdAndAddress("1", "Customer 1",new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         customer.AddRewardsPoints(10);
         await repository.CreateAsync(customer);
 
@@ -66,24 +65,22 @@ public class CustomerTest
     public async Task Test_Get_All_Async()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         await using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new CustomerRepository(new Context(options));
 
-        var customer = new Customer("1", "Customer 1");
-        customer.AddAddress(new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
+        var customer =CustomerFactory.CreateWithAddress( "Customer 1",new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         customer.AddRewardsPoints(10);
         await repository.CreateAsync(customer);
         
-        var customer2 = new Customer("2", "Customer 2");
-        customer2.AddAddress(new Address("Rua dos bobos", "1", "00000-000", "Jundiai"));
+        var customer2 =CustomerFactory.CreateWithAddress( "Customer 2",new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         customer2.AddRewardsPoints(10);
         await repository.CreateAsync(customer2);
 
@@ -97,18 +94,17 @@ public class CustomerTest
     public async Task Test_Delete_By_Id_Async()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<Context>().UseSqlite(connection).Options;
 
         await using (var context = new Context(options))
         {
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
         }
 
         var repository = new CustomerRepository(new Context(options));
-        var customer = new Customer("1", "Customer 1");
-        customer.AddAddress(new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
+        var customer =CustomerFactory.CreateWithIdAndAddress("1", "Customer 1",new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         customer.AddRewardsPoints(10);
         await repository.CreateAsync(customer);
 
