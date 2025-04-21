@@ -1,4 +1,5 @@
 using Application.Domain.Checkout.Entity;
+using Application.Domain.Checkout.Factory;
 using Application.Domain.Checkout.Repository;
 using Application.Domain.Customer.Entity;
 using Application.Infrastructure.db.Data;
@@ -16,7 +17,7 @@ public class OrderRepository : IOrderRepository
         _context = context;
     }
 
-    public async Task CreateOrderAsync(Order order, ICustomer customer)
+    public async Task CreateOrderAsync(IOrder order, ICustomer customer)
     {
         await _context.OrderModel.AddAsync(
             new OrderModel
@@ -48,16 +49,16 @@ public class OrderRepository : IOrderRepository
         }
     }
 
-    public Task<List<Order>> FindAllAsync()
+    public Task<List<IOrder>> FindAllAsync()
     {
-        var orders = _context.OrderModel.Select(x => new Order(x.Id, x.CustomerId,
+        var orders = _context.OrderModel.Select(x => OrderFactory.Create(x.Id, x.CustomerId,
             x.Items.Select(orderItem => new OrderItem(orderItem.Id, orderItem.Name, orderItem.Price,
                 orderItem.ProductId, orderItem.Quantity)).ToList())).ToList();
         return Task.FromResult(orders);
     }
 
 
-    public async Task<Order?> FindByIdAsync(string id)
+    public async Task<IOrder?> FindByIdAsync(string id)
     {
         var orderModel = await _context.OrderModel.FirstOrDefaultAsync(x => x.Id == id);
         if (orderModel == null)
@@ -70,13 +71,28 @@ public class OrderRepository : IOrderRepository
                 orderItem.ProductId, orderItem.Quantity)).ToList());
     }
 
-
-    public Task CreateAsync(Order entity)
+    public async Task CreateAsync(IOrder entity)
     {
-        throw new NotImplementedException();
+        await _context.OrderModel.AddAsync(
+            new OrderModel()
+            {
+                Id = entity.GetId(),
+                CustomerId = entity.GetCostumerId(),
+                Items = entity.GetItems().Select(orderItem => new OrderItemModel()
+                {
+                    Id = orderItem.GetId(),
+                    Name = orderItem.GetName(),
+                    Price = orderItem.GetPrice(),
+                    ProductId = orderItem.GetProductId(),
+                    Quantity = orderItem.GetQuantity(),
+                    OrderId = entity.GetId()
+                }).ToList(),
+                Total = entity.GetTotal()
+            });
+        await _context.SaveChangesAsync();
     }
 
-    public async Task<Order?> UpdateAsync(Order entity)
+    public async Task<IOrder?> UpdateAsync(IOrder entity)
     {
         var existingOrder = await _context.OrderModel.FirstOrDefaultAsync(x => x.Id == entity.GetId());
         if (existingOrder == null)
@@ -86,7 +102,7 @@ public class OrderRepository : IOrderRepository
 
         existingOrder.Total = entity.GetTotal();
         await _context.SaveChangesAsync();
-        return new Order(existingOrder.Id, existingOrder.CustomerId,
+        return OrderFactory.Create(existingOrder.Id, existingOrder.CustomerId,
             existingOrder.Items.Select(orderItem => new OrderItem(orderItem.Id, orderItem.Name, orderItem.Price,
                 orderItem.ProductId, orderItem.Quantity)).ToList());
     }

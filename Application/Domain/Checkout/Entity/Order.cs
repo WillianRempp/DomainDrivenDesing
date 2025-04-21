@@ -1,16 +1,18 @@
 namespace Application.Domain.Checkout.Entity;
 
-public class Order
+public class Order : IOrder
 {
     private string Id { get; }
+
     //Relationship with other aggregate should use id:
     private string CostumerId { get; }
+
     //Relationship in the same aggregate should use the object:
     private List<OrderItem> Items { get; }
 
     private decimal Total { get; }
 
-    public Order(string id, string costumerId, List<OrderItem> items)
+    internal Order(string id, string costumerId, List<OrderItem> items)
     {
         Id = id;
         CostumerId = costumerId;
@@ -29,17 +31,17 @@ public class Order
     {
         return Total;
     }
-    
+
     public List<OrderItem> GetItems()
     {
         return Items;
     }
-    
+
     public string GetId()
     {
         return Id;
     }
-    
+
     public string GetCostumerId()
     {
         return CostumerId;

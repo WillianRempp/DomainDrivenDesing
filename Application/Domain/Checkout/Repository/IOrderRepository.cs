@@ -4,7 +4,7 @@ using Application.Domain.shared.Repository;
 
 namespace Application.Domain.Checkout.Repository;
 
-public interface IOrderRepository : IRepository<Order>
+public interface IOrderRepository : IRepository<IOrder>
 {
-    Task CreateOrderAsync(Order order, ICustomer customer);
+    Task CreateOrderAsync(IOrder order, ICustomer customer);
 }

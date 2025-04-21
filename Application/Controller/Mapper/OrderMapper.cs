@@ -1,18 +1,19 @@
 ﻿using Application.Controller.Dto;
 using Application.Domain.Checkout.Entity;
+using Application.Domain.Checkout.Factory;
 
 namespace Application.Controller.Mapper;
 
 public static class OrderMapper
 {
-    public static Order ToEntity(OrderDto orderDto)
+    public static IOrder ToEntity(OrderDto orderDto)
     {
         var orderItems = orderDto.Items
             .Select(item => new OrderItem(orderDto.Id, item.Name, item.Price, item.ProductId, item.Quantity)).ToList();
-        return new Order(orderDto.Id, orderDto.CostumerId, orderItems);
+        return OrderFactory.Create(orderDto.Id, orderDto.CostumerId, orderItems);
     }
 
-    public static OrderDto ToDto(Order order)
+    public static OrderDto ToDto(IOrder order)
     {
         var orderItems = order.GetItems()
             .Select(item => new OrderItemDto()

@@ -1,8 +1,7 @@
 using Application.Domain.Checkout.Entity;
-using Application.Domain.Customer.Entity;
+using Application.Domain.Checkout.Factory;
 using Application.Domain.Customer.Factory;
 using Application.Domain.Customer.ValueObject;
-using Application.Domain.Product.Entity;
 using Application.Domain.Product.Factory;
 using Application.Infrastructure.db.Data;
 using Application.Infrastructure.Repository;
@@ -67,15 +66,16 @@ public class OrderTest
         var productRepository = await CreateProductRepository();
         var orderRepository = await CreateOrderRepository();
 
-        var customer = CustomerFactory.CreateWithIdAndAddress("1", "Customer 1",new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
+        var customer = CustomerFactory.CreateWithIdAndAddress("1", "Customer 1",
+            new Address("Rua dos bobos", "0", "00000-000", "Jundiai"));
         await customerRepository.CreateAsync(customer);
 
-        var product = ProductFactory.Create("a","1", "Product 1", 100);
+        var product = ProductFactory.Create("a", "1", "Product 1", 100);
         await productRepository.CreateAsync(product);
 
         var orderItem = new OrderItem("1", product.GetName(), product.GetPrice(), product.GetId(), 1);
 
-        var order = new Order("1", customer.GetId(), new List<OrderItem> { orderItem });
+        var order = OrderFactory.Create("1", customer.GetId(), new List<OrderItem> { orderItem });
         await orderRepository.CreateOrderAsync(order, customer);
 
         var orderOnDatabase = await orderRepository.FindByIdAsync(order.GetId());
